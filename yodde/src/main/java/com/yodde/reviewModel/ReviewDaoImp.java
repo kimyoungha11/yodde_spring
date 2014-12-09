@@ -127,7 +127,7 @@ public class ReviewDaoImp implements ReviewDao {
 		hMap.put("startNumb", startNumb);
 		hMap.put("endNumb", endNumb);
 		
-		//System.out.println("email = "+ email+"\n startNumb = " + startNumb + "\n endNumb = "+endNumb);
+		//System.out.println("ReviewDaoImp > getReviewByWriter"+ "\nemail = "+ email+"\n startNumb = " + startNumb + "\n endNumb = "+endNumb);
 		
 		try{
 			session = sqlSessionFactory.openSession();
@@ -185,4 +185,31 @@ public class ReviewDaoImp implements ReviewDao {
 		
 		return total;
 	}
+	
+	@Override
+	   public int updateReview(int reviewId, String updatedContent, int rate) {
+	      HashMap<String, Object> hMap=new HashMap<String, Object>();
+	      hMap.put("reviewId", reviewId);
+	      hMap.put("updatedContent", updatedContent);
+	      hMap.put("rate", rate);
+	      //System.out.println("updateReview/reviewId : " + reviewId + ", updatedContent : " + updatedContent);
+	      
+	      int check=0;
+	      
+	      try{
+	         session=sqlSessionFactory.openSession();
+	         check=session.update("updateReview", hMap);
+	         //System.out.println("updateReview check : " + check);
+	         session.commit();
+	      }catch(Exception e){
+	         System.out.println("updateReview error");
+	         e.printStackTrace();
+	         session.rollback();
+	      }finally{
+	         session.close();
+	      }
+	      
+	      return check;
+	   }
+	
 }

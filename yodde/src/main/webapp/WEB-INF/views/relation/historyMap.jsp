@@ -36,12 +36,13 @@
 			dataType:"text",
 			error: function(xhr, status, error){alert("error:" + status)},
 			success: function(data){
+				
 				alert("data="+"${reviewList}");
-				<c:forEach begin ="0" end ="10" var="itemReview" varStatus="itemStatus" items="${reviewList}">
-				
-				</c:forEach>
 				$(".HR_board").empty();
-				
+				<c:forEach begin ="0" end ="10" var="reviewList" varStatus="itemStatus" items="${reviewList}">
+
+				</c:forEach>
+
 			}
 		})
 	}
@@ -95,8 +96,9 @@
 					<c:forEach begin ="0" end = "${fn:length(reviewList)}" var="itemReview" varStatus="itemStatus" items="${reviewList}">
 						<!-- 리뷰 댓글 -->
 						<div class="HR_storeimg">
-							<img src="${root}/resources/images/images/ex0.jpg"style="width: 170px; height: 150px;"> 
-							<span class="HRstore_name"> ㅇㅇㅇㅇ<!-- storeDto.storeName -->
+							<a href="${root}/AjaxStore?storeId=${itemReview.storeId}"><img src="${root}/resources/images/images/ex0.jpg"style="width: 170px; height: 150px;"></a>
+							<span class="HRstore_name">
+							<!-- storeDto.storeName -->
 							<c:forEach begin="0" end="${fn:length(nameList)}" var="storeName" items="${nameList}">
 								<c:if test="${itemReview.storeId == storeName.storeId}">
 									${storeName.storeName}
@@ -125,12 +127,11 @@
 											</c:if>
 									</span>
 
-								</span> <span class="updown_position" style="min-width: 106px;">
-										<!-- 리뷰 찬반 --> <a href=""><img
-											src="${root}/resources/images/images/up.png" height="30"></a>
-										50 <a href=""><img
-											src="${root}/resources/images/images/down.png" height="30"></a>
-										0
+								</span> 
+								<span class="updown_position" style="min-width: 106px;">
+										<!-- 리뷰 찬반 --> 
+									<a href=""><img src="${root}/resources/images/images/up.png" height="30"></a> ${itemReview.like1} 
+									<a href=""><img src="${root}/resources/images/images/down.png" height="30"></a>${itemReview.unlike}
 								</span>
 									<p class="HRscroll_tag">${itemReview.content}</p> <span>
 										<span class="HR_photo_position"> <!-- 리뷰에 첨부된 사진들 --> <a
@@ -157,7 +158,10 @@
 				<div style="text-align:center">
 					<c:forEach varStatus="s" items="${reviewList}" begin="1" end="${total}">
 						<span>
+							<a href="${root}/info/historyPaging?email=${email}&startNumb=${s.count*10-9}">[${s.count}]</a>
+						<%-- 
 							<a href="javascript:paging('${email}','${s.count*10-9}')">[${s.count}]</a>
+						 --%>
 						</span>
 					</c:forEach>
 				</div>

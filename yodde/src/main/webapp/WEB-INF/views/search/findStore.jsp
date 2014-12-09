@@ -17,6 +17,7 @@
 
    var startNumb = 1;
    var pageNumb = 2;
+   var getStorePic="query=" + "${query}";
    function callOpenAPI(query, start) {
       var params = {"target" : "local", "query" : "", "display":10 , "start": start } // OpenAPI 요청변수 정의
       params.query = encodeURIComponent(query);
@@ -54,12 +55,37 @@
          var item = "title="+ title + "&category="+ category + "&telephone=" + telephone + "&address=" + address + "&roadAddress=" + roadAddress + "&email=" + email;
          
          var info = "<br/>" + "<div class='result_stores'>"
-         info += "<div class='recommend' style='float:left'><a href='javascript:insertStore(\""+item+"\",\""+mapx+"\",\""+mapy+"\")'>" + "<img src='${root}/resources/images/images/ex1.jpg' height='170'></a></div>"
+         info += "<input type='hidden' id='getStorePic' value='" + address + "'/>"
+         info += "<div class='recommend' style='float:left'><a href='javascript:insertStore(\""+item+"\",\""+mapx+"\",\""+mapy+"\")'>" + "<img src='${root}/resources/images/images/ex1.jpg' height='180' width='180'></a></div>"
          info += "<div style='float:left; padding-left:20px;'><a href='javascript:insertStore(\""+item+"\",\""+mapx+"\",\""+mapy+"\")'>" + title + "</a>" + "</br>" + category + "</br>" + telephone + "</br>" + address + "</br>" + roadAddress +"</div></div>";
          $("#result").append(info); // <title>값 표시
          start++;
-
       });
+      
+      $.ajax({
+          url:"getStorePic?" + getStorePic,
+          type:"get",
+          dataType:"json",
+          error: function(xhr, status, error) { alert("error : " +status); },
+          success: function(data){
+             store=data.list;
+             //alert(store[0].address);
+             
+             
+                for(var i=0;i<store.length;i++){
+                   //alert(store[i].address);
+                   $(".result_stores").find("input:hidden").each(function (idx){
+                     if($(this).val()==store[i].address){
+                        if(store[i].profilePic != ''){
+                           $(this).next().find("img").attr("src", "${root}"+store[i].profilePic);
+                        }
+                       }
+                   });
+                }
+          }
+      });
+      
+      
       
       if(pageNumb <= totalPage && totalPage < 11){
          if(totalCount>=10){
@@ -82,20 +108,20 @@
       }
    }
    function insertStore(item, mapx, mapy){   
-	   $(document).ready(function() {
-		   jQuery.ajax({            
-		         type:"GET",
-		         url:"http://apis.daum.net/local/geo/transcoord",
-		         data:"apikey=aea5d21e8e375ed8d2aa0c5d97a6b62af132a0ce&x="+mapx+"&y="+mapy+"&fromCoord=KTM&toCoord=WGS84&output=json",
-		         dataType:"jsonp", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
-		         jsonp:"callback",
-		         success : function(data) {
-		        	 item +="&mapx="+data.x+"&mapy="+data.y;
-		             $(location).attr("href", "/home/getStoreInfo?" + item);
-					//alert("item="+item+"\n mapx= "+data.x+", mapy= "+data.y);
-		         }
-			})
-		});
+      $(document).ready(function() {
+         jQuery.ajax({            
+               type:"GET",
+               url:"http://apis.daum.net/local/geo/transcoord",
+               data:"apikey=aea5d21e8e375ed8d2aa0c5d97a6b62af132a0ce&x="+mapx+"&y="+mapy+"&fromCoord=KTM&toCoord=WGS84&output=json",
+               dataType:"jsonp", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+               jsonp:"callback",
+               success : function(data) {
+                  item +="&mapx="+data.x+"&mapy="+data.y;
+                   $(location).attr("href", "/home/getStoreInfo?" + item);
+               //alert("item="+item+"\n mapx= "+data.x+", mapy= "+data.y);
+               }
+         })
+      });
 
    }
 </script>

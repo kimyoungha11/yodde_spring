@@ -19,8 +19,8 @@
       
       <script type="text/javascript" src="${root}/resources/scripts/jquery-2.1.1.js"></script>
       <script type="text/javascript" src="${root}/resources/scripts/jquery.raty.js"></script>
-      <script type="text/javascript">
-         function writeReview() {
+      <script type="text/javascript">                                    /* 리뷰 작성 */
+         function writeReview() {   
             alert("write");
          }
          function showReviewEditor(email) {
@@ -28,64 +28,95 @@
                alert("로그인 후 이용하세요.");
                return;
             }
+            var historyCheck = document.getElementById("historyCheck").value;
+            if(historyCheck==1){
+               alert("이미 리뷰를 남기셨습니다.");
+               return;
+            }
+            
             var obj = document.getElementById("reviewEditorDiv");
             if (obj.style.display == "")
                obj.style.display = "none";
             else
                obj.style.display = "";
          }
+      </script>
+      
+      <script type="text/javascript">                                    /* 수정버튼 요청 함수 */
+         function showUpdateEditor(email, content, reviewId){   
+            //alert("showupdate/email : " + email + ", content : " + content + ", reviewId : " + reviewId);
          
-         function showUpdateEditor(email, content){                        /*수정버튼 요청 함수*/
              /*기존에 있던 공간들*/
             var originalDiv = document.getElementById("originalDiv");
             var hide = document.getElementById("hide");
-            var upBtn = document.getElementById("upBtn");
+            var updateBtn = document.getElementById("updateBtn");
             var delBtn = document.getElementById("delBtn");
             
             originalDiv.style.display="none";
             hide.style.display="none";
-            upBtn.style.display="none";
+            updateBtn.style.display="none";
             delBtn.style.display="none";
             
             /*새로 만들 공간들*/
             var updateEditorDiv = document.getElementById("updateEditorDiv");
             var update_rate = document.getElementById("update_rate");
-            var okBtn = document.getElementById("okBtn");
+            var okBtn2 = document.getElementById("okBtn2");
             var canBtn = document.getElementById("canBtn");
             var updateValue = document.getElementById("updateValue");
-            
+
             updateValue.value=content;
             updateEditorDiv.style.display="";
             update_rate.style.display="";
-            okBtn.style.display="";
+            okBtn2.style.display="";
             canBtn.style.display="";
+            
+            $("#okBtn2").click(function(){
+               var rate = document.getElementById("update_rate").value;
+               //alert("rate = " + rate);
+                var url="updateReivewAction?reviewId=" + reviewId + "&updatedContent=" + updateValue.value + "&rate=" + rate;
+                //alert("okBtn clicked url: " + url);
+                $(document).ready(function(){   
+                   $.ajax({
+                     url:url,
+                     type:"get",
+                     contentType:"text/xml; charset=utf-8", 
+                     dataType: "text",
+                     error: function(xhr, status, error) { alert("error : " +status); },
+                     success: function(data){
+                        //alert("OK");
+                        location.reload();
+                     }
+                  });
+               });
+            });
          }
          
-         function returnUpdateEditer(){                              /*수정취소버튼 요청 함수*/
+         function returnUpdateEditer(){                              /* 수정취소버튼 요청 함수 */
             var original = document.getElementById("originalDiv");
             var hide = document.getElementById("hide");
-            var upBtn = document.getElementById("upBtn");
+            var updateBtn = document.getElementById("updateBtn");
             var delBtn = document.getElementById("delBtn");
             var updateValue = document.getElementById("updateValue");
             
             original.style.display="";
             hide.style.display="";
-            upBtn.style.display="";
+            updateBtn.style.display="";
             delBtn.style.display="";
             updateValue.innerHTML="";
             
             var obj = document.getElementById("updateEditorDiv");
             var update_rate = document.getElementById("update_rate");
-            var okBtn = document.getElementById("okBtn");
+            var okBtn2 = document.getElementById("okBtn2");
             var canBtn = document.getElementById("canBtn");
             
             obj.style.display="none";
             //obj.document = content;
             update_rate.style.display="none";
-            okBtn.style.display="none";
+            okBtn2.style.display="none";
             canBtn.style.display="none";
          }
-         </script>
+      </script>
+      
       <script>
          function loginFollow(){
             alert("로그인을 해주세요.");
@@ -93,23 +124,24 @@
          
          function followCheck(){
             var mail="${email}";
-         var store="${storeDto.storeId}";
-         var url="followStore?email=" + mail + "&storeId=" + store;
-         
-         $.ajax({
-            url:url,
-            type:"get",
-            contentType:"text/xml; charset=utf-8", 
-            dataType: "text",
-            error: function(xhr, status, error) { alert("error : " +status); },
-            success: function(data){
-               //alert(data);
-               if(data ==1){
-                  $("#follow").attr("src", "${root}/resources/images/images/follow.png");   
-               }else{
-                  $("#follow").attr("src", "${root}/resources/images/images/notfollow.png");
+            var store="${storeDto.storeId}";
+            var url="followStore?email=" + mail + "&storeId=" + store;
+            
+            $.ajax({
+               url:url,
+               type:"get",
+               contentType:"text/xml; charset=utf-8", 
+               dataType: "text",
+               error: function(xhr, status, error) { alert("error : " +status); },
+               success: function(data){
+                  //alert(data);
+                  if(data ==1){
+                     $("#follow").attr("src", "${root}/resources/images/images/follow.png");   
+                  }else{
+                     $("#follow").attr("src", "${root}/resources/images/images/notfollow.png");
+                  }
                }
-            } }); // Ajax 호출 및 이벤트 핸들러 함수 정의
+            }); // Ajax 호출 및 이벤트 핸들러 함수 정의
          }
       </script>
       <script type="text/javascript">               /* 썸네일 팝업 함수 */
@@ -118,7 +150,7 @@
                    "width=500,height=500,toolbar=no, status=no, menubar=no,scrollbars=no,resizeable=no,left=300,top=150");
                }
       </script>
-      <script type="text/javascript">             /*리뷰 사진올리기 */
+      <script type="text/javascript">             /* 리뷰 사진올리기 */
          function readURL(input) {
             if (input.files && input.files[0]) {
                var reader = new FileReader();
@@ -188,22 +220,25 @@
             }
          }
       </script>
-      
       <script type="text/javascript">               /* like unlike */
-         function checkEval(eval, reviewId, likeNum, evalInfo){
+         function checkEval(eval, reviewId, likeNum, evalInfo, reviewEmail){
             var email = "${email}";
             var evaluator = "${eval[0].evaluator}";
             var evalInfo = evalInfo;
             //alert(evalInfo + ", " + eval);      //evalInfo : 기존정보, eval : 이번 정보
             
-            if(evalInfo==eval || evalInfo=="" ||  evalInfo==0){
-               evaluation(eval, reviewId, likeNum);
+            if(email==reviewEmail){
+               alert("본인의 리뷰는 평가할 수 없습니다.");
             }else{
-               alert("님 반대쪽에 투표했잖아염");
+               if(evalInfo==eval || evalInfo=="" ||  evalInfo==0){
+                  evaluation(eval, reviewId, likeNum);
+               }else{
+                  alert("님 반대쪽에 투표했잖아염");
+               }
             }
          }
       
-         function evaluation(eval, reviewId, likeNum) {
+         function evaluation(eval, reviewId, likeNum, reviewEmail) {
             var email="${email}";
             var url="evaluation?email=" + email + "&reviewId=" + reviewId + "&eval=" + eval;
             //alert("evaluation function / eval : "+ eval + "\treviewId : " + reviewId + "likeNum" + likeNum);
@@ -485,8 +520,11 @@
    
                <div class="review_board">
                   <!-- 리뷰 보드 -->
+                  <c:set var="historyCheck" value="0"/>
                   <c:forEach var="itemReview" items="${reviewList}">
-                       
+                        <c:if test="${itemReview.writer_email==email}">
+                           <input type="hidden" value="1" id="historyCheck"/>
+                        </c:if>
                      <div class="review">
                         <!-- DB에서 리뷰 받아와서 뿌려줌 -->
                         <span class="reviewer_profile"> 
@@ -512,13 +550,13 @@
                                  <!-- 리뷰 찬반 -->
                                  <span class="updown_position"> 
                                     <!-- Like -->
-                                    <a href="javascript:checkEval(1,'${itemReview.reviewId}', '${itemReview.like1}','${eval[0].eval}')">
+                                    <a href="javascript:checkEval(1,'${itemReview.reviewId}', '${itemReview.like1}','${eval[0].eval}', '${itemReview.writer_email}')">
                                        <img src="${root}/resources/images/images/up.png" height="25">
                                     </a>
                                     <span id="upNumber">${itemReview.like1}</span>
                                     
                                     <!-- Unlike -->
-                                    <a href="javascript:checkEval(2,'${itemReview.reviewId}', '${itemReview.unlike}', '${eval[0].eval}')">
+                                    <a href="javascript:checkEval(2,'${itemReview.reviewId}', '${itemReview.unlike}', '${eval[0].eval}', '${itemReview.writer_email}')">
                                        <img src="${root}/resources/images/images/down.png" height="25">
                                     </a>
                                     <span id="downNumber">${itemReview.unlike}</span>
@@ -528,7 +566,6 @@
                                  </span>
                               </span>
                               
-                              <form action="updateReivew" method="post" enctype="multipart/form-data">
                                  <span id="update_rate" style="display:none;">
                                     <span id="update"></span>
                                     <span id="edit-hint" class="input hint"></span>
@@ -539,7 +576,7 @@
                                                    target : '#edit-hint',
                                                    targetKeep: true,
                                                    click: function(score, evt){
-                                                      $('#rate').val(score);
+                                                      $('#update_rate').val(score);
                                                       /*별점 넘겨줘야됨 */
                                                    }
                                                 });
@@ -552,12 +589,12 @@
                                        <textarea id="updateValue" name="content" cols=103 rows=5 style="border:0px; background-color:#DCDCDF; resize: none;"></textarea>
                                     </p>
                                     
-                                    <input type="hidden" name="rate" id="rate"> 
+                                    <input type="hidden" name="rate" id="update_rate"> 
                                  <input type="hidden" name="writer" value="${email}">
                                  <input type="hidden" name="storeId" value="${storeDto.storeId}">
                                  <input id="canBtn" style="display:none;" align="right" type="IMAGE" src="${root}/resources/images/images/cancel.png" onclick="javascript:returnUpdateEditer(); return false;" height="25">      <!-- 수정 취소 버튼 -->
                                  <input id="okBtn" style="display:none;" align="right" type="IMAGE" class="review_write" src="${root}/resources/images/images/ok.png" height="25" name="Submit" value="Submit">
-                                 </form>
+                                 <input id="okBtn2" style="display:none;" align="right" type="IMAGE" class="review_write" src="${root}/resources/images/images/ok.png" height="25">
                               <span> 
                                  <span class="review_photo_position">             <!-- 리뷰에 첨부된 사진들 --> 
                                     <c:forEach var="filepath" items="${itemReview.picPath}">
@@ -571,8 +608,8 @@
                               <span class="content_btn">                         
                                        <span class="btn_position">
                                           <c:if test="${email == itemReview.writer_email}">   <!-- 본인댓글일 경우  수정 /삭제 -->
-                                                <a href="javascript:showUpdateEditor('${email}','${itemReview.content}')">
-                                                   <img id="upBtn" src="${root}/resources/images/images/update.png" height="25"></a>
+                                                <a href="javascript:showUpdateEditor('${email}','${itemReview.content}', '${itemReview.reviewId}')">
+                                                   <img id="updateBtn" src="${root}/resources/images/images/update.png" height="25"></a>
                                        <a href="javascript:del('${itemReview.reviewId}', '${itemReview.storeId}')">
                                                    <img id="delBtn" src="${root}/resources/images/images/delete.png" height="25"></a>
                                                 <%-- 

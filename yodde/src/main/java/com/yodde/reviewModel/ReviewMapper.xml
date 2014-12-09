@@ -60,10 +60,9 @@
 		select SUM(rate)/count(*) from review where writer=#{email}
 	</select>
 
-	<select id="selectReviewByWriter" parameterType="java.util.HashMap"
-		resultType="com.yodde.reviewModel.Review">
+	<select id="selectReviewByWriter" parameterType="java.util.HashMap" resultType="com.yodde.reviewModel.Review">
 	<![CDATA[
-		select count(*) over () as totalReview, r.* from review r where r.writer = #{email} and rownum between #{startNumb} and #{endNumb}
+		SELECT * FROM(SELECT rownum rnum, count(*) over () as totalReview, r.* FROM REVIEW r WHERE WRITER=#{email}) WHERE rnum between #{startNumb} and #{endNumb}
 	]]>
 	</select>
 
@@ -86,5 +85,7 @@
 	<select id="getReviewTotal" parameterType="String" resultType="int">
 		select count(*) from review where writer=#{email}
 	</select>
-
+<insert id="updateReview" parameterType="java.util.HashMap">
+      update review set content=#{updatedContent}, lastModify=SYSDATE, rate=#{rate} where reviewId=#{reviewId}
+   </insert>
 </mapper>

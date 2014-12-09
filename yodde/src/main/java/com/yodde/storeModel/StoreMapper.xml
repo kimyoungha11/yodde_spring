@@ -116,9 +116,12 @@
          WHERE r.storeId=a.storeId) b) WHERE b.writer=m.email ORDER BY writedate desc) WHERE rownum <=6
       ]]>    
     </select>
-    
     <select id="selectStoreByAddress" parameterType="String" resultType="com.yodde.storeModel.StoreDto">
-   		SELECT * FROM store WHERE address LIKE #{query}
+         SELECT * FROM store WHERE address LIKE #{query}
+   </select>
+    
+	<select id="selectStoreByQuery" parameterType="String" resultType="com.yodde.storeModel.StoreDto">
+         SELECT * FROM store WHERE storeName LIKE #{query}
    </select>
    
 </mapper>

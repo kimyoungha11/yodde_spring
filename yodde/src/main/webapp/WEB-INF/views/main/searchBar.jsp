@@ -21,7 +21,7 @@ function search(checked){
 	   $(location).attr("href", "${root}/searchTag?query=" + query);
 	}else if(checked.length>0 && query.length>0){
 		$(location).attr("href", "${root}/searchStoreByStoreInfo?query="+query+"&storeInfo="+storeInfo);
-		alert("query="+query+"\n"+storeInfo);
+		//alert("query="+query+"\n"+storeInfo);
 	}else if(checked.length==0 && query.length>0){
 	   $(location).attr("href", "${root}/searchStore?query=" + query);
 	} 

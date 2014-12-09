@@ -224,5 +224,23 @@ public class SearchStoreCtrl {
 		mav.setViewName("/main/region");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/getStorePic", method = RequestMethod.GET)
+	   public ModelAndView getStorePic(HttpServletRequest request,
+	         HttpServletResponse response) throws Exception {
+	      String query = request.getParameter("query");
+	      //System.out.println(query);
+	      
+	      List<StoreDto> list=null;
+	      list=storeDao.selectStoreByQuery(query);
+	      //System.out.println(list.size());
+	      
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.addObject("list", list);
+	      mav.setViewName("jsonView");
+
+	      return mav;
+	   }
 
 }

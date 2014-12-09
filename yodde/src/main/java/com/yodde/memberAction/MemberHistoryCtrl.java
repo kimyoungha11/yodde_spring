@@ -68,20 +68,23 @@ public class MemberHistoryCtrl {
 	@RequestMapping(value ="/info/historyPaging", method = RequestMethod.GET)
 	public ModelAndView historyPaging(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
 		String email = request.getParameter("email");
 		int startNumb = Integer.parseInt(request.getParameter("startNumb"));
 		int endNumb = startNumb+9;
-		
-		//System.out.println("email=" + email + "\nstartNumb="+startNumb+"\nendNumb="+endNumb);
-		
+		double totalPage =Math.ceil(reviewDao.getReviewTotal(email)/10);
+
 		List<Review> reviewList = null;
 		reviewList = reviewDao.getReviewByWriter(email, startNumb, endNumb);
 
-		
+		List<StoreDto> nameList;
+		nameList=storeDao.selectRecentReviewName(email);
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("total", totalPage);
 		mav.addObject("reviewList", reviewList);
-		mav.setViewName("/result");
+		mav.addObject("nameList", nameList);
+		mav.setViewName("/relation/historyMap");
 		
 		return mav;
 	}

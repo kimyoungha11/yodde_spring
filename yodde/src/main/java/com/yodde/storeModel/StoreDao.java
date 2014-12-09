@@ -21,4 +21,6 @@ public interface StoreDao {
    public List<LikeDto> selectLike();
    public List<FollowReview> selectFollowReview(String email);
    public List<FollowStore> selectFollowStoreReview(String email);
+   public List<StoreDto> selectStoreByQuery(String query);
+   
 }
