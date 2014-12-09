@@ -206,9 +206,9 @@
          });
       </script>
       <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-		<script type="text/javascript">
-		// Note that using Google Gears requires loading the Javascript
-		// at http://code.google.com/apis/gears/gears_init.js
+      <script type="text/javascript">
+      // Note that using Google Gears requires loading the Javascript
+      // at http://code.google.com/apis/gears/gears_init.js
             
         var initialLocation;
         var siberia = new google.maps.LatLng(60, 105);
@@ -220,55 +220,55 @@
             if (navigator.geolocation) {
                 browserSupportFlag = true;                    
                 navigator.geolocation.getCurrentPosition(function(position){
-                	GoogleMap.initialize(position.coords.latitude, position.coords.longitude);
+                   GoogleMap.initialize(position.coords.latitude, position.coords.longitude);
                 }, function(){
                     handleNoGeolocation(browserSupportFlag);
                 });
                 // Try Google Gears Geolocation
             }            
-			else {
-			    browserSupportFlag = false;
-			    handleNoGeolocation(browserSupportFlag);
-			}
+         else {
+             browserSupportFlag = false;
+             handleNoGeolocation(browserSupportFlag);
+         }
             
             GoogleMap = {initialize : function(latitude, logitude) {
-            	var geocoder = new google.maps.Geocoder();
-            	geocoder.geocode({'latLng': new google.maps.LatLng(latitude, logitude)},
-            	function(result, status) {
-            		var address = result[2].formatted_address;
-            		var addressArray = address.split(" ");
-            		var addr = addressArray[1] + " " + addressArray[2];
-            		//var index = address.indexOf(" ");
-            		//var addr = address.substring(index+1, address.length);
-	                 $.ajax({
-	                 	type:"get",
-	                     url:"${root}/getLocalStore/",
-	                     data:"address=" + addr,
-	                     contentType:"text/xml; charset=utf-8", 
-	                     dataType:"html",
-	                     error: function(xhr, status, error) { alert("error : " +status); },
-	                     success: function(data){
-	                    	//alert(data);
-	                        var divRegion = document.getElementById("region");
-	                        divRegion.innerHTML = data;                 
-	                     } 
-	     			}); // Ajax 호출 및 이벤트 핸들러 함수 정의
-            	});
-            	}
+               var geocoder = new google.maps.Geocoder();
+               geocoder.geocode({'latLng': new google.maps.LatLng(latitude, logitude)},
+               function(result, status) {
+                  var address = result[2].formatted_address;
+                  var addressArray = address.split(" ");
+                  var addr = addressArray[1] + " " + addressArray[2];
+                  //var index = address.indexOf(" ");
+                  //var addr = address.substring(index+1, address.length);
+                    $.ajax({
+                       type:"get",
+                        url:"${root}/getLocalStore/",
+                        data:"address=" + addr,
+                        contentType:"text/xml; charset=utf-8", 
+                        dataType:"html",
+                        error: function(xhr, status, error) { alert("error : " +status); },
+                        success: function(data){
+                          //alert(data);
+                           var divRegion = document.getElementById("region");
+                           divRegion.innerHTML = data;                 
+                        } 
+                 }); // Ajax 호출 및 이벤트 핸들러 함수 정의
+               });
+               }
             }
             
             function handleNoGeolocation(errorFlag){
                 if (errorFlag == true) {
-                	document.getElementById("address").value = "";	
+                   document.getElementById("address").value = "";   
                 }
                 else {
-                	document.getElementById("address").value = "";
+                   document.getElementById("address").value = "";
                 }
             }           
         }
-		</script>
-	</head>
-	<body onload="initialize()">
+      </script>
+   </head>
+   <body onload="initialize()" al>
       <div>
          <jsp:include page="../common/title.jsp"/>      <!-- title -->
       </div>
@@ -281,7 +281,7 @@
          
             <div class="store_box">
                <div class="store_box_title">
-                  <img src="${root}/resources/images/images/1_HOT.png" height="40"> 핫플레이스!
+                  <img src="${root}/resources/images/images/1_HOT2.png" height="30">
                </div>
                <div class="stores" id="pic_slide">
                   <div class="slide_title">
@@ -305,7 +305,7 @@
             
             <div class="store_box">
                <div class="store_box_title">
-                  <img src="${root}/resources/images/images/2_REGION.png" height="40"> 지역 중심 상점
+                  <img src="${root}/resources/images/images/2_REGION2.png" height="30">
                </div>
                <div class="stores" id="pic_slide">
                   <div class="slide_title" id="region">
@@ -316,7 +316,7 @@
             
             <div class="store_box">
                <div class="store_box_title">
-                  <img src="${root}/resources/images/images/3_LIKES.png" height="40"> 좋아요 많은 리뷰
+                  <img src="${root}/resources/images/images/3_LIKES2.png" height="30">
                </div>
                <div class="stores" id="pic_slide">
                   <div class="slide_title">
@@ -340,7 +340,7 @@
             
             <div class="store_box">
                <div class="store_box_title">
-                  <img src="${root}/resources/images/images/4_NEW.png" height="40"> 새로 오픈한 상점
+                  <img src="${root}/resources/images/images/4_NEW2.png" height="30">
                </div>
                <div class="stores" id="pic_slide">
                   <div class="slide_title">
@@ -365,7 +365,7 @@
             <c:if test="${status == 'member'}">
                <div class="store_box">
                   <div class="store_box_title">
-                     <img src="${root}/resources/images/images/4_NEW.png" height="40"> 팔로잉 하는 사람 최신 리뷰
+                     <img src="${root}/resources/images/images/4_NEW2.png" height="30">
                   </div>
                   <div class="stores" id="pic_slide">
                      <div class="slide_title">
@@ -389,7 +389,7 @@
             
                <div class="store_box">
                   <div class="store_box_title">
-                     <img src="${root}/resources/images/images/4_NEW.png" height="40"> 팔로잉 하는 상점 최신 리뷰
+                     <img src="${root}/resources/images/images/4_NEW2.png" height="30">
                   </div>
                   <div class="stores" id="pic_slide">
                      <div class="slide_title">

@@ -80,7 +80,7 @@ p{
 
 .myPage_box{
 	width:600px; height: auto;
-	margin: 4% 0px 0px 25%;
+	margin: 8% 0px 0px 25%;
 	padding:0px 0px 0px 0px;
 }
 .content_box{
@@ -210,6 +210,27 @@ p{
 	padding-top:10px;
 }
 
+
+.delete_content{
+	paddubg-top: 50px;
+}
+.Password_box{
+	margin: 8% 0px 0px 25%;
+}
+.delete_content_box{
+	height: 100px;
+	width: 350px;
+	padding-left: 10px;
+	margin-bottom: 30px;
+	background-color: #F4F4F4;
+}
+.confirm_box{
+	text-align:center;
+}
+.delete_Btn{
+	text-align:center;
+	margin-top:5px;
+}
 
 
 

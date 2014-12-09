@@ -2,161 +2,161 @@
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
 ol, ul {
-	list-style: none;
+   list-style: none;
 }
 
 body {
-	width: auto;	height: auto;
-	margin: 0;
-	
-	background-color: #fff;
-	font-size: 100%;
-	font-family:'Nanum Gothic', '맑은 고딕', Helvetica;
-	font-weight: normal;
-	color: #848484;
+   width: auto;   height: auto;
+   margin: 0;
+   
+   background-color: #fff;
+   font-size: 100%;
+   font-family:'Nanum Gothic', '맑은 고딕', Helvetica;
+   font-weight: normal;
+   color: #848484;
 }
 
 .category {
-	list-style: none;
-	margin-top: 85%;
-	padding:25% 0px 0px 0px; 
+   list-style: none;
+   margin-top: 85%;
+   padding:25% 0px 0px 0px; 
 }
 
 .category_li {
-	margin: 0 0 0 0;
-	padding: 0
+   margin: 0 0 0 0;
+   padding: 0
 }
 
 /*카테고리에 마우스 올리면 색 변하는부분  */
 a {
-	text-decoration: none;
-	outline: none
+   text-decoration: none;
+   outline: none
 }
 
 a {
-	color: #4da7ca;
+   color: #4da7ca;
 }
 
 a:hover {
-	color: #4290ae;
+   color: #4290ae;
 }
 
 /*헤더 색깔! */
 #header {
-	background-color: #F38983
+   background-color: white;
 }
 
 /* 탑 검은색 바! */
 #header
 .inside {
-	padding: 20px 30px 20px 30px;
-	margin: 0 auto !important;
-	max-width: 1020px !important;
-	position: relative;
-/* 	z-index: 200 */
+   padding: 20px 30px 20px 30px;
+   margin: 0 auto !important;
+   max-width: 1020px !important;
+   position: relative;
+/*    z-index: 200 */
 }
 
 #mainNav
 .tinynav {
-	display: none
+   display: none
 }
 
 /*슬라이드되서 나오는부분  */
 #pageslide {
-	display: none;
-	position: absolute;
-	position: fixed;
-	top: 0;
-	height: 100%;
-	/* z-index: 999999; */
-	width: 160px;
-	padding: 0 20px;
-	background-color: #333;
-	color: #FFF;
-	overflow: auto
+   display: none;
+   position: absolute;
+   position: fixed;
+   top: 0;
+   height: 100%;
+   /* z-index: 999999; */
+   width: 160px;
+   padding: 0 20px;
+   background-color: #333;
+   color: #FFF;
+   overflow: auto
 }
 
 #slideNav {
-	display: none;
-	padding-top: 40px
+   display: none;
+   padding-top: 40px
 }
 
 #slideNav
 #mainNav {
-	margin-bottom: 30px
+   margin-bottom: 30px
 }
 
 #slideNav #mainNav
 li {
-	display: block !important;
-	margin: 0 20px 15px 20px
+   display: block !important;
+   margin: 0 20px 15px 20px
 }
 
 #slideNav #mainNav ul
 ul {
-	padding: 20px 0 0 10px
+   padding: 20px 0 0 10px
 }
 
 #slideNav #mainNav li
 /* 슬라이드 되서 나오면 있는 카테고리 글씨 */
 a {
-	color: rgba(255, 255, 255, .5);
-	font-weight: bold;
-	-o-transition: .5s;
-	-ms-transition: .5s;
-	-moz-transition: .5s;
-	-webkit-transition: .5s;
-	transition: .5s
+   color: rgba(255, 255, 255, .5);
+   font-weight: bold;
+   -o-transition: .5s;
+   -ms-transition: .5s;
+   -moz-transition: .5s;
+   -webkit-transition: .5s;
+   transition: .5s
 }
 
 /* 카테고리 글씨에 마우스 올리면 변할 색깔 */
 #slideNav #mainNav li a:hover {
-	color: #F38983;
+   color: #F38983;
 }
 
 #mainNav ul li.current a, #mainNav ul li.current-cat a, #mainNav ul li.current_page_item a,
-	#mainNav ul li.current-menu-item a, #mainNav ul li.current-post-ancestor a,
-	.single-post #mainNav ul li.current_page_parent a, #mainNav ul li.current-category-parent a,
-	#mainNav ul li.current-category-ancestor a, #mainNav ul li.current-portfolio-ancestor a,
-	#mainNav ul li.current-projects-ancestor
+   #mainNav ul li.current-menu-item a, #mainNav ul li.current-post-ancestor a,
+   .single-post #mainNav ul li.current_page_parent a, #mainNav ul li.current-category-parent a,
+   #mainNav ul li.current-category-ancestor a, #mainNav ul li.current-portfolio-ancestor a,
+   #mainNav ul li.current-projects-ancestor
 a {
-	color: rgba(255, 255, 255, 1) !important
+   color: rgba(255, 255, 255, 1) !important
 }
 
 .menuToggle {
-	width: 32px;
-	height: 28px;
-	background: transparent url(../../images/images/categoryBtn.png)
-		no-repeat;
-	background-size: 32px 28px !important;
-	background-color:#F38983;
-	cursor: pointer;
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	margin-top: -16px;
-	-o-transition: .5s;
-	-ms-transition: .5s;
-	-moz-transition: .5s;
-	-webkit-transition: .5s;
-	transition: .5s
+   width: 32px;
+   height: 28px;
+   background: transparent url(../../images/images/categoryBtn.png)
+      no-repeat;
+   background-size: 32px 28px !important;
+   background-color:white;
+   cursor: pointer;
+   position: absolute;
+   left: 225px;
+   top: 50%;
+   margin-top: -16px;
+   -o-transition: .5s;
+   -ms-transition: .5s;
+   -moz-transition: .5s;
+   -webkit-transition: .5s;
+   transition: .5s
 }
 
 /* .closeBtn {
-	width: 20px;
-	height: 20px;
-	background: transparent url(../img/close.jpg)
-		no-repeat;
-	background-size: 20px 20px !important;
-	cursor: pointer;
-	position: absolute;
-	right: 20px;
-	top: 30px;
-	margin-top: -16px;
-	-o-transition: .5s;
-	-ms-transition: .5s;
-	-moz-transition: .5s;
-	-webkit-transition: .5s;
-	transition: .5s;
-	opacity: .5
+   width: 20px;
+   height: 20px;
+   background: transparent url(../img/close.jpg)
+      no-repeat;
+   background-size: 20px 20px !important;
+   cursor: pointer;
+   position: absolute;
+   right: 20px;
+   top: 30px;
+   margin-top: -16px;
+   -o-transition: .5s;
+   -ms-transition: .5s;
+   -moz-transition: .5s;
+   -webkit-transition: .5s;
+   transition: .5s;
+   opacity: .5
 } */

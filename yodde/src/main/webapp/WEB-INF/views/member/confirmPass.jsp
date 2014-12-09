@@ -34,12 +34,12 @@
       <script type="text/javascript" src="${root}/resources/scripts/jQueryWeb2.js"></script>
       <form action="${root}/info/passwordConfirm" method="post" onsubmit="confirmPass()">
       <div class="content">                           <!-- content -->
-         <div class="delete_content">
-            <div class="Password_box" >
+         <div class="myPage_content" >
+            <div class="Password_box" style="margin-left:15%; width:890px;">
                <div class="result_title">               <!-- login title -->
                   <img src="${root}/resources/images/images/passconfirm.png" height="45">
                </div>
-               <ul class="delete_content_box">
+               <ul class="delete_content_box" >
                   <li class="confirm_box">
                      <div class="Password">Password</div>
                      <input type="password" class="password" name="password" >
